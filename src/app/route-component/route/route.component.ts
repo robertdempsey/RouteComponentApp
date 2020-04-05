@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-route',
+  selector: 'route',
   templateUrl: './route.component.html',
   styleUrls: ['./route.component.css']
 })
 export class RouteComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
