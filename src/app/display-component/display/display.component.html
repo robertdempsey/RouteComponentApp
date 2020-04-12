@@ -1,1 +1,1 @@
-<p> {{ test }}</p>
+<input type="text" [ngModel]="test" (ngModelChange)="dataUpdated.emit($event)" [style.width]="'100%'">

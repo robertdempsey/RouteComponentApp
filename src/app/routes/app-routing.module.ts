@@ -19,6 +19,9 @@ const routes: RouteInterface[] = [
         type: DisplayComponent,
         inputs: {
           test: 'This uses static data from our inputs in route data'
+        },
+        outputs: {
+          dataUpdated: (newData) => console.log(newData)
         }
       }
     }

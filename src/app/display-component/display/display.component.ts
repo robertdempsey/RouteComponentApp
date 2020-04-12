@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'display',
@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class DisplayComponent implements OnInit {
 
   test: string;
+  dataUpdated = new EventEmitter<string>();
 
   constructor() { }
 

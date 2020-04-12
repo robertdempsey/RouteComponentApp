@@ -5,7 +5,7 @@ export interface InjectionComponent<ComponentType> {
     type: ComponentType;
     inputs?: { [P in keyof Partial<ComponentType>]: any };
     outputs?: { [P in keyof Partial<ComponentType>]: (param: any) => any }
-    asyncInputs?: { [P in keyof Partial<ComponentType>]: Subject<any> };
+    dynamicInputs?: { [P in keyof Partial<ComponentType>]: Subject<any> };
 }
 
 @Component({
@@ -43,8 +43,8 @@ export class ComponentInjectorComponent implements OnChanges, OnDestroy {
             }
         }
 
-        for (const asyncInput in this.component.asyncInputs) {
-            this.subscriptions.push(this.component.asyncInputs[asyncInput]
+        for (const asyncInput in this.component.dynamicInputs) {
+            this.subscriptions.push(this.component.dynamicInputs[asyncInput]
                 .subscribe(value => {
                     ref.instance[asyncInput] = value;
                     ref.changeDetectorRef.detectChanges();
