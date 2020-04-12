@@ -1,18 +1,12 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'display',
   templateUrl: './display.component.html',
   styleUrls: ['./display.component.css']
 })
-export class DisplayComponent implements OnInit {
+export class DisplayComponent {
 
-  test: string;
+  @Input() test: string;
   dataUpdated = new EventEmitter<string>();
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }
