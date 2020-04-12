@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'display',
@@ -8,5 +8,5 @@ import { Component, EventEmitter, Input } from '@angular/core';
 export class DisplayComponent {
 
   @Input() test: string;
-  dataUpdated = new EventEmitter<string>();
+  @Output() dataUpdated = new EventEmitter<string>();
 }
