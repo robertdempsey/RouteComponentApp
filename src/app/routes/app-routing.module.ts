@@ -2,14 +2,12 @@ import { NgModule, Type, Component } from '@angular/core';
 import { Routes, RouterModule, Route, Data } from '@angular/router';
 import { RouteComponent } from '../route-component/route/route.component';
 import { DisplayComponent } from '../display-component/display/display.component';
-
-export type RouteDataInterface = {
-  component: Type<any>
-  inputs: any
-}
+import { ComponentInjectorComponent, InjectionComponent } from '../component-injector/component-injector.component';
 
 export interface RouteInterface extends Route {
-  data: RouteDataInterface;
+  data: {
+    component: InjectionComponent<any>
+  };
 }
 
 const routes: RouteInterface[] = [
@@ -17,9 +15,11 @@ const routes: RouteInterface[] = [
     path: 'RouteComponentExample',
     component: RouteComponent,
     data: {
-      component: DisplayComponent,
-      inputs: {
-        test: 'This uses static data from our inputs in route data'
+      component: {
+        type: DisplayComponent,
+        inputs: {
+          test: 'This uses static data from our inputs in route data'
+        }
       }
     }
   }

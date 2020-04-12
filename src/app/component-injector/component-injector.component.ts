@@ -2,7 +2,7 @@ import { Component, ComponentFactoryResolver, ComponentRef, EventEmitter, Input,
 import { Subject, Subscription } from 'rxjs';
 
 export interface InjectionComponent<ComponentType> {
-    component: Type<ComponentType>;
+    type: ComponentType;
     inputs?: { [P in keyof Partial<ComponentType>]: any };
     outputs?: { [P in keyof Partial<ComponentType>]: (param: any) => any }
     asyncInputs?: { [P in keyof Partial<ComponentType>]: Subject<any> };
@@ -26,7 +26,7 @@ export class ComponentInjectorComponent implements OnChanges, OnDestroy {
     ngOnChanges(changes: SimpleChanges) {
 
         this.viewContainerRef.clear();
-        const factory = this.componentFactoryResolver.resolveComponentFactory(this.component.component);
+        const factory = this.componentFactoryResolver.resolveComponentFactory(this.component.type);
         const ref = this.viewContainerRef.createComponent(factory);
         this.componentCreated.emit(ref);
 
