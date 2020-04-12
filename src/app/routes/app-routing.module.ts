@@ -1,8 +1,8 @@
-import { NgModule, Type, Component } from '@angular/core';
-import { Routes, RouterModule, Route, Data } from '@angular/router';
-import { RouteComponent } from '../route-component/route/route.component';
+import { NgModule } from '@angular/core';
+import { Route, RouterModule } from '@angular/router';
+import { InjectionComponent } from '../component-injector/component-injector.component';
 import { DisplayComponent } from '../display-component/display/display.component';
-import { ComponentInjectorComponent, InjectionComponent } from '../component-injector/component-injector.component';
+import { RouteComponent } from '../route-component/route/route.component';
 
 export interface RouteInterface extends Route {
   data: {
