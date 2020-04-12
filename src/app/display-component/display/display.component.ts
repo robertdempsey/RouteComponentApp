@@ -7,6 +7,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class DisplayComponent {
 
-  @Input() test: string;
+  @Input() inputData: string;
   @Output() dataUpdated = new EventEmitter<string>();
 }
