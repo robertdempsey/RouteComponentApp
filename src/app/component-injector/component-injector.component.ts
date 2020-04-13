@@ -1,5 +1,6 @@
-import { Component, ComponentFactoryResolver, ComponentRef, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges, Type, ViewContainerRef } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import { Component, ComponentFactoryResolver, Input, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef } from '@angular/core';
+import { Subject, Subscription, ReplaySubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 export interface InjectionComponent<ComponentType> {
     type: ComponentType;
@@ -15,8 +16,7 @@ export interface InjectionComponent<ComponentType> {
 export class ComponentInjectorComponent implements OnChanges, OnDestroy {
 
     @Input() public component: InjectionComponent<any>;
-    @Output() public componentCreated = new EventEmitter<ComponentRef<any>>();
-    subscriptions: Array<Subscription> = [];
+    private destroyed = new Subject<void>();
 
     constructor(
         private componentFactoryResolver: ComponentFactoryResolver,
@@ -28,7 +28,6 @@ export class ComponentInjectorComponent implements OnChanges, OnDestroy {
         this.viewContainerRef.clear();
         const factory = this.componentFactoryResolver.resolveComponentFactory(this.component.type);
         const ref = this.viewContainerRef.createComponent(factory);
-        this.componentCreated.emit(ref);
 
         for (let input in this.component.inputs) {
             ref.instance[input] = this.component.inputs[input];
@@ -36,27 +35,29 @@ export class ComponentInjectorComponent implements OnChanges, OnDestroy {
 
         for (let output in this.component.outputs) {
             if (ref.instance[output]) {
-                this.subscriptions.push(ref.instance[output].subscribe(data => {
+                ref.instance[output].pipe(
+                    takeUntil(this.destroyed)
+                ).subscribe(data => {
                     this.component.outputs[output](data);
                 })
-                )
             }
         }
 
         for (const asyncInput in this.component.dynamicInputs) {
-            this.subscriptions.push(this.component.dynamicInputs[asyncInput]
+            this.component.dynamicInputs[asyncInput].pipe(
+                takeUntil(this.destroyed)
+            )
                 .subscribe(value => {
                     ref.instance[asyncInput] = value;
                     ref.changeDetectorRef.detectChanges();
-                }))
+                })
         }
 
         ref.changeDetectorRef.detectChanges();
     }
 
     ngOnDestroy(): void {
-        for (const sub of this.subscriptions) {
-            sub.unsubscribe();
-        }
+        this.destroyed.next();
+        this.destroyed.complete();
     }
 }
