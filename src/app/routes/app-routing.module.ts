@@ -4,13 +4,13 @@ import { InjectionComponent } from '../component-injector/component-injector.com
 import { DisplayComponent } from '../display-component/display/display.component';
 import { RouteComponent } from '../route-component/route/route.component';
 
-export interface RouteInterface extends Route {
+export interface RouteData extends Route {
   data: {
     component: InjectionComponent<any>
   };
 }
 
-const routes: RouteInterface[] = [
+const routes: RouteData[] = [
   {
     path: 'RouteComponentExample',
     component: RouteComponent,
