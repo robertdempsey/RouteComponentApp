@@ -5,6 +5,7 @@ import { AppRoutingModule } from './routes/app-routing.module';
 import { RouteComponentModule } from './route-component/route-component.module';
 import { RouterModule } from '@angular/router';
 import { DisplayComponentModule } from './display-component/display-component.module';
+import { DescriptionResolver } from './routes/resolvers/description.resolver';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { DisplayComponentModule } from './display-component/display-component.mo
     RouterModule,
     DisplayComponentModule
   ],
-  providers: [],
+  providers: [DescriptionResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
