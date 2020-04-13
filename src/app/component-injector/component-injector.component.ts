@@ -1,5 +1,5 @@
 import { Component, ComponentFactoryResolver, Input, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef } from '@angular/core';
-import { Subject, Subscription, ReplaySubject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 export interface InjectionComponent<ComponentType> {
