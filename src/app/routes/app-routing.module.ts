@@ -21,8 +21,9 @@ const routes: RouteData[] = [
           inputData: `This is populated with static data from our 'inputs' property in route data`
         },
         outputs: {
-          dataUpdated: function(this, newData: string) {
+          dataUpdated: function(this: RouteComponent, newData: string) {
             console.log(this)
+            console.log(newData)
           }
         }
       }
