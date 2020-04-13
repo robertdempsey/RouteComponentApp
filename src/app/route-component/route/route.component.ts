@@ -14,6 +14,10 @@ export class RouteComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    for (let output in this.route.snapshot.data.component.outputs) {
+      this.route.snapshot.data.component.outputs[output] = this.route.snapshot.data.component.outputs[output].bind(this)
+    }
+
     this.component = this.route.snapshot.data.component;
   }
 
