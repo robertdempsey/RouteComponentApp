@@ -1,11 +1,13 @@
-import { Component, ComponentFactoryResolver, Input, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef, Type } from '@angular/core';
+import { Component, ComponentFactoryResolver, Input, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef, Type, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
+type extractGeneric<Type> = Type extends EventEmitter<infer X> ? X : null
 
 export interface InjectionComponent<ComponentType> {
     type: Type<ComponentType>;
     inputs?: { [P in keyof Partial<ComponentType>]: ComponentType[P] };
-    outputs?: { [P in keyof Partial<ComponentType>]: (param: any) => any }
+    outputs?: { [P in keyof Partial<ComponentType>]: (param: extractGeneric<ComponentType[P]>) => any }
     dynamicInputs?: { [P in keyof Partial<ComponentType>]: Subject<ComponentType[P]> };
 }
 
