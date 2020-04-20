@@ -1,12 +1,12 @@
-import { Component, ComponentFactoryResolver, Input, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, Input, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef, Type } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 export interface InjectionComponent<ComponentType> {
-    type: ComponentType;
-    inputs?: { [P in keyof Partial<ComponentType>]: any };
+    type: Type<ComponentType>;
+    inputs?: { [P in keyof Partial<ComponentType>]: ComponentType[P] };
     outputs?: { [P in keyof Partial<ComponentType>]: (param: any) => any }
-    dynamicInputs?: { [P in keyof Partial<ComponentType>]: Subject<any> };
+    dynamicInputs?: { [P in keyof Partial<ComponentType>]: Subject<ComponentType[P]> };
 }
 
 @Component({
