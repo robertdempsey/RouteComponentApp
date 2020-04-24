@@ -1,21 +1,11 @@
 import { NgModule } from '@angular/core';
-import { Route, RouterModule } from '@angular/router';
-import { InjectionComponent } from '../component-injector/component-injector.component';
+import { RouterModule } from '@angular/router';
 import { DisplayComponent } from '../display-component/display/display.component';
-import { RouteComponent } from '../route-component/route/route.component';
+import { RouteComponent, RouteData } from '../route-component/route/route.component';
 import { DescriptionResolver } from './resolvers/description.resolver';
+import { RouteServiceImplementation } from './route.service';
 
-export interface RouteDataComponent<ComponentType> extends InjectionComponent<ComponentType> {
-  routeDataInputs?: { [P in keyof Partial<ComponentType>]: string }
-}
-
-export interface RouteData<ComponentType> extends Route {
-  data: {
-    component: RouteDataComponent<ComponentType>
-  };
-}
-
-const displayRoute: RouteData<DisplayComponent> = {
+const displayRoute: RouteData<RouteServiceImplementation, DisplayComponent> = {
   path: 'RouteComponentExample/:route_id',
   component: RouteComponent,
   data: {
@@ -25,12 +15,13 @@ const displayRoute: RouteData<DisplayComponent> = {
         inputData: `This is populated with static data from our 'inputs' property in route data`
       },
       outputs: {
-        dataUpdated: function (this: RouteComponent, newData: string) {
+        dataUpdated: function (this: RouteComponent<RouteServiceImplementation>, newData: string) {
           console.log(this)
           console.log(newData)
+          console.log(this.routeService)
         }
       },
-      routeDataInputs: {
+      dynamicInputs: {
         componentDescription: 'componentDescription'
       }
     }
@@ -40,7 +31,7 @@ const displayRoute: RouteData<DisplayComponent> = {
   }
 }
 
-const routes: RouteData<any>[] = [
+const routes: RouteData<RouteServiceImplementation, any>[] = [
   displayRoute
 ];
 

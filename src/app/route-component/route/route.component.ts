@@ -1,28 +1,54 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ComponentInjectorComponent } from 'src/app/component-injector/component-injector.component';
+import { Component, Inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Route } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ComponentInjectorComponent, InjectionComponent } from 'src/app/component-injector/component-injector.component';
+import { RouteService } from './route.service';
+
+export interface RouteDataComponent<RouteServiceType, ComponentType> extends InjectionComponent<ComponentType> {
+  dynamicInputs?: { [P in keyof Partial<ComponentType>]: keyof RouteServiceType }
+}
+
+export interface RouteData<RouteServiceType, ComponentType> extends Route {
+  data: {
+    component: RouteDataComponent<RouteServiceType, ComponentType>
+  };
+}
 
 @Component({
   selector: 'route',
   templateUrl: './route.component.html',
   styleUrls: ['./route.component.css']
 })
-export class RouteComponent implements OnInit {
+export class RouteComponent<RouteServiceType> implements OnInit {
 
   component: ComponentInjectorComponent;
+  private destroyed$ = new Subject<void>();
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    @Inject(RouteService) public routeService: RouteServiceType
+  ) { }
 
   ngOnInit(): void {
-    for (let output in this.route.snapshot.data.component.outputs) {
-      this.route.snapshot.data.component.outputs[output] = this.route.snapshot.data.component.outputs[output].bind(this)
-    }
+    this.route.data.pipe(
+      takeUntil(this.destroyed$)
+    ).subscribe(data => {
+      for (let output in data.component.outputs) {
+        data.component.outputs[output] = data.component.outputs[output].bind(this)
+      }
 
-    for (let routeDataInput in this.route.snapshot.data.component.routeDataInputs) {
-      this.route.snapshot.data.component.inputs[routeDataInput] = this.route.snapshot.data[routeDataInput];
-    }
+      for (let routeDataInput in data.component.routeDataInputs) {
+        data.component.inputs[routeDataInput] = data[routeDataInput];
+      }
 
-    this.component = this.route.snapshot.data.component;
+      this.component = data.component;
+    })
+
   }
 
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
 }

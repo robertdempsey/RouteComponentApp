@@ -1,11 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { RouteService } from 'src/app/route-component/route/route.service';
+import { RouteServiceImplementation } from '../route.service';
 
 @Injectable({ providedIn: 'root' })
-export class DescriptionResolver implements Resolve<string> {
-    resolve(route: ActivatedRouteSnapshot): Observable<string> {
-        return of(`This data was fetched from a backend in DescriptionResolver using http and configured using 
+export class DescriptionResolver implements Resolve<void> {
+
+    constructor(@Inject(RouteService) public routeService: RouteServiceImplementation) {
+        
+    }
+
+    resolve(route: ActivatedRouteSnapshot) {
+        this.routeService.componentDescription.next(`This data was fetched from a backend in DescriptionResolver using http and configured using 
         RouteDataInputs`)
     }
 }

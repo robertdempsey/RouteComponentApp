@@ -6,6 +6,7 @@ import { RouteComponentModule } from './route-component/route-component.module';
 import { RouterModule } from '@angular/router';
 import { DisplayComponentModule } from './display-component/display-component.module';
 import { DescriptionResolver } from './routes/resolvers/description.resolver';
+import { RouteServiceImplementation } from './routes/route.service';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,9 @@ import { DescriptionResolver } from './routes/resolvers/description.resolver';
   ],
   imports: [
     BrowserModule,
-    RouteComponentModule,
+    RouteComponentModule.forRoot({
+      routeServiceType: RouteServiceImplementation
+    }),
     AppRoutingModule,
     RouterModule,
     DisplayComponentModule

@@ -17,7 +17,7 @@ export interface InjectionComponent<ComponentType> {
 export class ComponentInjectorComponent implements OnChanges, OnDestroy {
 
     @Input() public component: InjectionComponent<any>;
-    private destroyed = new Subject<void>();
+    private destroyed$ = new Subject<void>();
 
     constructor(
         private componentFactoryResolver: ComponentFactoryResolver,
@@ -37,7 +37,7 @@ export class ComponentInjectorComponent implements OnChanges, OnDestroy {
         for (let output in this.component.outputs) {
             if (ref.instance[output]) {
                 ref.instance[output].pipe(
-                    takeUntil(this.destroyed)
+                    takeUntil(this.destroyed$)
                 ).subscribe(data => {
                     this.component.outputs[output](data);
                 })
@@ -48,7 +48,7 @@ export class ComponentInjectorComponent implements OnChanges, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.destroyed.next();
-        this.destroyed.complete();
+        this.destroyed$.next();
+        this.destroyed$.complete();
     }
 }
