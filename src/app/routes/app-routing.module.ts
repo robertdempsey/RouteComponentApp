@@ -6,7 +6,7 @@ import { RouteComponent } from '../route-component/route/route.component';
 import { DescriptionResolver } from './resolvers/description.resolver';
 
 export interface RouteDataComponent<ComponentType> extends InjectionComponent<ComponentType> {
-  routeDataInputs?: { [key: string]: any }
+  routeDataInputs?: { [P in keyof Partial<ComponentType>]: string }
 }
 
 export interface RouteData<ComponentType> extends Route {
