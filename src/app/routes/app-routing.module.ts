@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { DisplayComponent } from '../display-component/display/display.component';
 import { RouteComponent, RouteData } from '../route-component/route/route.component';
 import { DescriptionResolver } from './resolvers/description.resolver';
-import { RouteServiceImplementation } from './route.service';
+import { RouteServiceImplementation } from './route.implementation.service';
 
 const displayRoute: RouteData<RouteServiceImplementation, DisplayComponent> = {
   path: 'RouteComponentExample/:route_id',

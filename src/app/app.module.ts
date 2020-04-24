@@ -6,7 +6,7 @@ import { RouteComponentModule } from './route-component/route-component.module';
 import { RouterModule } from '@angular/router';
 import { DisplayComponentModule } from './display-component/display-component.module';
 import { DescriptionResolver } from './routes/resolvers/description.resolver';
-import { RouteServiceImplementation } from './routes/route.service';
+import { RouteServiceImplementation } from './routes/route.implementation.service';
 
 @NgModule({
   declarations: [

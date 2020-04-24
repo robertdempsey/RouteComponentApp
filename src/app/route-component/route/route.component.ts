@@ -5,8 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ComponentInjectorComponent, InjectionComponent } from 'src/app/component-injector/component-injector.component';
 import { RouteService } from './route.service';
 
-export interface RouteDataComponent<RouteServiceType, ComponentType> extends InjectionComponent<ComponentType> {
-  dynamicInputs?: { [P in keyof Partial<ComponentType>]: keyof RouteServiceType }
+export interface RouteDataComponent<RouteServiceType, ComponentType> extends InjectionComponent<RouteServiceType, ComponentType> {
 }
 
 export interface RouteData<RouteServiceType, ComponentType> extends Route {
@@ -22,7 +21,7 @@ export interface RouteData<RouteServiceType, ComponentType> extends Route {
 })
 export class RouteComponent<RouteServiceType> implements OnInit {
 
-  component: ComponentInjectorComponent;
+  component: ComponentInjectorComponent<RouteServiceType>;
   private destroyed$ = new Subject<void>();
 
   constructor(
