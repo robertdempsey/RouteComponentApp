@@ -1,4 +1,11 @@
 <input type="text" [ngModel]="inputData" (ngModelChange)="dataUpdated.emit($event)" [style.width]="'100%'"
     [style.margin-bottom]="'2rem'">
 
-{{ componentDescription }}
+<div>
+    {{ componentDescription }}
+</div>
+
+
+<div [style.margin-top]="'3em'">
+    This input has been updated <strong>{{ dynamicInputUpdateCount }}</strong> times by updating the buttonPressCount in our routeService
+</div>

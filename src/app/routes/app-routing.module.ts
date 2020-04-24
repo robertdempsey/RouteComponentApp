@@ -22,7 +22,8 @@ const displayRoute: RouteData<RouteServiceImplementation, DisplayComponent> = {
         }
       },
       dynamicInputs: {
-        componentDescription: 'componentDescription'
+        componentDescription: 'componentDescription',
+        dynamicInputUpdateCount: 'buttonPressCount'
       }
     }
   },

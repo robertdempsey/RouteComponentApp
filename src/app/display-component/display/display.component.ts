@@ -9,6 +9,7 @@ export class DisplayComponent {
 
   @Input() inputData: string;
   @Input() componentDescription: string;
+  @Input() dynamicInputUpdateCount: number;
 
   @Output() dataUpdated = new EventEmitter<string>();
 }

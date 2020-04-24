@@ -3,4 +3,6 @@
     <a [routerLink]="['RouteComponentExample', '1']" [style.margin-right]="'1rem'">RouteComponent Example</a>
 </div>
 
+<button  [style.margin-bottom]="'2rem'" (click)="increaseButtonCount()">Click me to increase routeService.count by 1</button>
+
 <router-outlet></router-outlet>
