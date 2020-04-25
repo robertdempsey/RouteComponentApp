@@ -15,7 +15,7 @@ const displayRoute: RouteData<RouteServiceImplementation, DisplayComponent> = {
         inputData: `This is populated with static data from our 'inputs' property in route data`
       },
       outputs: {
-        dataUpdated: function (this: RouteComponent<RouteServiceImplementation>, newData: string) {
+        dataUpdated: function (this: RouteComponent<RouteServiceImplementation, DisplayComponent>, newData: string) {
           console.log(this)
           console.log(newData)
           console.log(this.routeService)

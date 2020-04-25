@@ -5,12 +5,9 @@ import { takeUntil } from 'rxjs/operators';
 import { ComponentInjectorComponent, InjectionComponent } from 'src/app/component-injector/component-injector.component';
 import { RouteService } from './route.service';
 
-export interface RouteDataComponent<RouteServiceType, ComponentType> extends InjectionComponent<RouteServiceType, ComponentType> {
-}
-
 export interface RouteData<RouteServiceType, ComponentType> extends Route {
   data: {
-    component: RouteDataComponent<RouteServiceType, ComponentType>
+    component: InjectionComponent<RouteServiceType, ComponentType>
   };
 }
 
@@ -19,9 +16,9 @@ export interface RouteData<RouteServiceType, ComponentType> extends Route {
   templateUrl: './route.component.html',
   styleUrls: ['./route.component.css']
 })
-export class RouteComponent<RouteServiceType> implements OnInit {
+export class RouteComponent<RouteServiceType, ComponentType> implements OnInit {
 
-  component: ComponentInjectorComponent<RouteServiceType>;
+  component: InjectionComponent<RouteServiceType, ComponentType>;
   private destroyed$ = new Subject<void>();
 
   constructor(
@@ -32,13 +29,9 @@ export class RouteComponent<RouteServiceType> implements OnInit {
   ngOnInit(): void {
     this.route.data.pipe(
       takeUntil(this.destroyed$)
-    ).subscribe(data => {
+    ).subscribe((data: RouteData<RouteServiceType, ComponentType>['data']) => {
       for (let output in data.component.outputs) {
         data.component.outputs[output] = data.component.outputs[output].bind(this)
-      }
-
-      for (let routeDataInput in data.component.routeDataInputs) {
-        data.component.inputs[routeDataInput] = data[routeDataInput];
       }
 
       this.component = data.component;

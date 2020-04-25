@@ -16,7 +16,7 @@ export interface InjectionComponent<RouteServiceType, ComponentType> {
     selector: 'component-injector',
     template: ''
 })
-export class ComponentInjectorComponent<RouteServiceType> implements OnChanges, OnDestroy {
+export class ComponentInjectorComponent<RouteServiceType, ComponentType> implements OnChanges, OnDestroy {
 
     @Input() public component: InjectionComponent<RouteServiceType, any>;
     private destroyed$ = new Subject<void>();
