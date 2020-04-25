@@ -1,8 +1,15 @@
 <div [style.width]="'100%'" [style.margin-bottom]="'2rem'">
     <a [routerLink]="['/']" [style.margin-right]="'1rem'">Home</a>
-    <a [routerLink]="['RouteComponentExample', '1']" [style.margin-right]="'1rem'">RouteComponent Example</a>
+    <a [routerLink]="[{ outlets: { 
+        primary: ['RouteComponentExample', '1'], 
+        two: ['RouteComponentExample', '1'] 
+    } }]" [style.margin-right]="'1rem'">RouteComponent Example</a>
 </div>
 
 <button  [style.margin-bottom]="'2rem'" (click)="increaseButtonCount()">Click me to increase routeService.count by 1</button>
 
 <router-outlet></router-outlet>
+<br>
+<br>
+<br>
+<router-outlet name="two"></router-outlet>

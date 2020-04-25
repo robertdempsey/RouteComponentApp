@@ -6,7 +6,7 @@ import { RouteService } from '../route-component/route/route.service';
 type extractGeneric<Type> = Type extends EventEmitter<infer X> ? X : null
 
 export interface InjectionComponent<RouteServiceType, ComponentType> {
-    type: Type<ComponentType>;
+    componentType: Type<ComponentType>;
     inputs?: { [P in keyof Partial<ComponentType>]: ComponentType[P] };
     outputs?: { [P in keyof Partial<ComponentType>]: (param: extractGeneric<ComponentType[P]>) => any }
     dynamicInputs?: { [P in keyof Partial<ComponentType>]: keyof RouteServiceType }
@@ -31,7 +31,7 @@ export class ComponentInjectorComponent<RouteServiceType, ComponentType> impleme
     ngOnChanges(changes: SimpleChanges) {
 
         this.viewContainerRef.clear();
-        const factory = this.componentFactoryResolver.resolveComponentFactory(this.component.type);
+        const factory = this.componentFactoryResolver.resolveComponentFactory(this.component.componentType);
         const ref = this.viewContainerRef.createComponent(factory);
 
         for (const input in this.component.inputs) {
