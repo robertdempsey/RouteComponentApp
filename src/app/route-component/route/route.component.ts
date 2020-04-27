@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ComponentInjectorComponent, InjectionComponent } from 'src/app/component-injector/component-injector.component';
+import { ComponentInjectorComponent, InjectionComponent } from '../../component-injector/component-injector.component';
 import { RouteService } from './route.service';
 
 export interface RouteData<RouteServiceType, ComponentType> extends Route {
@@ -16,7 +16,7 @@ export interface RouteData<RouteServiceType, ComponentType> extends Route {
   templateUrl: './route.component.html',
   styleUrls: ['./route.component.css']
 })
-export class RouteComponent<RouteServiceType, ComponentType> implements OnInit {
+export class RouteComponent<RouteServiceType, ComponentType> implements OnInit, OnDestroy {
 
   component: InjectionComponent<RouteServiceType, ComponentType>;
   private destroyed$ = new Subject<void>();

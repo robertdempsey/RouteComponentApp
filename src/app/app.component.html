@@ -1,15 +1,12 @@
-<div [style.width]="'100%'" [style.margin-bottom]="'2rem'">
-    <a [routerLink]="['/']" [style.margin-right]="'1rem'">Home</a>
-    <a [routerLink]="[{ outlets: { 
-        primary: ['RouteComponentExample', '1'], 
-        two: ['RouteComponentExample', '1'] 
-    } }]" [style.margin-right]="'1rem'">RouteComponent Example</a>
+<h4>RouteComponent Example Application</h4>
+
+<button class="btn btn-outline-primary" [style.margin-bottom]="'2rem'" (click)="increaseButtonCount()">Click me to increase routeService.count by 1</button>
+
+<div class="border p-2">
+	<router-outlet></router-outlet>
 </div>
-
-<button  [style.margin-bottom]="'2rem'" (click)="increaseButtonCount()">Click me to increase routeService.count by 1</button>
-
-<router-outlet></router-outlet>
 <br>
 <br>
-<br>
-<router-outlet name="two"></router-outlet>
+<div class="border p-2">
+	<router-outlet name="two"></router-outlet>
+</div>

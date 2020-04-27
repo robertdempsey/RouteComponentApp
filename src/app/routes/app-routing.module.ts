@@ -6,7 +6,7 @@ import { DescriptionResolver } from './resolvers/description.resolver';
 import { RouteServiceImplementation } from './route.implementation.service';
 
 const secondaryDisplayRoute: RouteData<RouteServiceImplementation, DisplayComponent> = {
-  path: 'RouteComponentExample/:route_id',
+  path: '',
   component: RouteComponent,
   data: {
     component: {
@@ -34,7 +34,7 @@ const secondaryDisplayRoute: RouteData<RouteServiceImplementation, DisplayCompon
 }
 
 const displayRoute: RouteData<RouteServiceImplementation, DisplayComponent> = {
-  path: 'RouteComponentExample/:route_id',
+  path: '',
   component: RouteComponent,
   data: {
     component: {

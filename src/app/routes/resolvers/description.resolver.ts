@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { RouteService } from 'src/app/route-component/route/route.service';
+import { RouteService } from '../../route-component/route/route.service';
 import { RouteServiceImplementation } from '../route.implementation.service';
 
 @Injectable({ providedIn: 'root' })
